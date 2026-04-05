@@ -27,13 +27,6 @@ TEMP_DIR.mkdir(exist_ok=True)
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
 
-@app.on_event("startup")
-async def preload_models():
-    """Pre-load translation model on server start so it's ready when needed."""
-    print("Pre-loading translation model...")
-    await asyncio.to_thread(load_model)
-    print("Translation model ready.")
-
 
 @app.get("/")
 async def index():
